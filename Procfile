@@ -1,0 +1,1 @@
+web: vendor/bin/heroki-php-apache2 public/
