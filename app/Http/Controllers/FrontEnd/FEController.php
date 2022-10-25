@@ -1,18 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\FrontEnd;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
 
 class FEController extends Controller
 {
-    public function master(){
-        $categories = Category::all();
-        return view('template.fe.layouts.master', ['categories' => $categories]);
-    }
-
     public function product_by_cate($id){
         $categories = Category::all();
         $product = Product::where('cate_id', $id)->get();
@@ -42,26 +38,27 @@ class FEController extends Controller
     }
 
     public function cart(){
-        return view('template.fe.cart');
+        $cart = Cart::all();
+        return view('template.fe.cart', compact('cart'));
     }
 
     public function fruit(){
-        $product_fruit = product::where('cate_id','1')->get();
+        $product_fruit = Product::where('cate_id', 1)->get();
         return view('template.fe.fruit', compact('product_fruit'));
     }
 
     public function pizza(){
-        $product_pizza = product::where('cate_id','2')->get();
+        $product_pizza = Product::where('cate_id', 2)->get();
         return view('template.fe.pizza', compact('product_pizza'));
     }
 
     public function cream(){
-        $product_cream = product::where('cate_id','3')->get();
+        $product_cream = Product::where('cate_id', 3)->get();
         return view('template.fe.cream', compact('product_cream'));
     }
 
-    public function drinks(){
-        $product_drinks = product::where('cate_id','4')->get();
-        return view('template.fe.drinks', compact('product_drinks'));
+    public function drinnks(){
+        $product_drinks = Product::where('cate_id', 4)->get();
+        return view('template.fe.drinnks', compact('product_drinks'));
     }
 }

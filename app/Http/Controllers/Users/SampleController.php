@@ -47,19 +47,25 @@ class SampleController extends Controller
             'password'  =>  'required|min:6'
         ]);
 
-        $user = User::where('email', '=', $request->email)->first();
+        // $user = User::where('email', '=', $request->email)->first();
 
-        if($user){
-            if(Hash::check($request->password, $user->password)){
-                $request->session()->put('loginId', $user->id);
-                return redirect('dashboard')->with('success', 'Login Success');
-            }else{
-                return redirect('login')->with('error', 'Password not matches');
-            }
+        // if($user){
+        //     if(Hash::check($request->password, $user->password)){
+        //         $request->session()->put('loginId', $user->id);
+        //         return redirect('dashboard')->with('success', 'Login Success');
+        //     }else{
+        //         return redirect('login')->with('error', 'Password not matches');
+        //     }
+        // }else{
+        //     return redirect('login')->with('error', 'This Email is not registered');
+        // }
+       
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+            return redirect('dashboard')->with('success', 'Login Success');
         }else{
             return redirect('login')->with('error', 'This Email is not registered');
         }
-       
+
     }
 
     function dashboard(){
@@ -72,10 +78,11 @@ class SampleController extends Controller
 
     function logout(){
 
-        if(Session::has('loginId')){
-            Session::pull('loginId');
-            return redirect('/');
-        }
-
+        // if(Session::has('loginId')){
+        //     Session::pull('loginId');
+        //     return redirect('/');
+        // }
+        Auth::logout();
+        return redirect('/');
     }
 }

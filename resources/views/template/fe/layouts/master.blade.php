@@ -66,13 +66,13 @@
 								<li>
 									<a href="{{ route('shop') }}">Shop</a>
 									<ul class="sub-menu">
-										@foreach ($categories as $category )
+										{{-- @foreach ($categories as $category )
 											<li><a href="{{ url('category/'.$category->id) }}">{{ $category->name }}</a></li>
-										@endforeach
-										{{-- <li><a href="{{ route('fruit') }}">Fruit</a></li>
+										@endforeach --}}
+										<li><a href="{{ route('fruit') }}">Fruit</a></li>
 										<li><a href="{{ route('pizza') }}">Pizza</a></li>
 										<li><a href="{{ route('cream') }}">Cream</a></li>
-										<li><a href="{{ route('drinks') }}">Drinks</a></li> --}}
+										<li><a href="{{ route('drinks') }}">Drinks</a></li>
 									</ul>
 								</li>
 								<li>
@@ -88,7 +88,7 @@
 									<div class="header-icons">
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 										<a class="shopping-cart" href="{{ route('cart') }}"><i class="fas fa-shopping-cart"></i></a>
-										@if(Session::has('loginId'))
+										@if(Auth::check())
 											<form action="{{ route('logout') }}" method="post" id="logout-form">
                     							@csrf
 												<a class="user" href="#" onclick="document.getElementById('logout-form').submit()">Logout</a>
